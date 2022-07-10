@@ -17,3 +17,18 @@ IP-адрес считается доступным, если выполнени
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+import subprocess
+#ip_list = ['8.8.8.8', '8.8.4.4', '192.168.1.1', '192.168.0.1']
+
+def ping_ip_addresses(listip):
+    avadd = []
+    unavadd = []
+    for addr in listip:
+        reply = subprocess.run(['ping', '-c', '3', '-n', addr])
+        if reply.returncode == 0:
+            avadd.append(addr)
+        else: unavadd.append(addr)
+    return avadd, unavadd
+
+if __name__ == "__main__":
+    print(ping_ip_addresses(['8.8.8.8', '8.8.4.4', '192.168.1.1']))
