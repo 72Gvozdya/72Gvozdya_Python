@@ -54,7 +54,7 @@ def get_all_from_db(connection, query):
 
 
 if __name__ == '__main__':
-    con = create_connection('sw_inventory3.db')
+    con = create_connection('sw_inventory4.db')
 
     print('Создание таблицы...')
     schema = '''create table switch

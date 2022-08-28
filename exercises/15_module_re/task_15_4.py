@@ -24,3 +24,9 @@ interface Loopback0
 
 Проверить работу функции на примере файла config_r1.txt.
 """
+import re
+def get_ints_without_description(file):
+    regex =
+
+if __name__ == '__main__':
+    print(get_ints_without_description('config_r1.txt'))

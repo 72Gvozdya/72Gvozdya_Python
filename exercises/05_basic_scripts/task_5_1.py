@@ -46,5 +46,7 @@ london_co = {
         "routing": True,
     },
 }
-arg = input('Введите имя устройства: ')
-print(london_co[arg])
+name = input("Введите имя устройства (r1, r2, sw1): ")
+#print('london_co{}'.format([name]))
+#print(f"{london_co[name]}")
+print(london_co.get(name))

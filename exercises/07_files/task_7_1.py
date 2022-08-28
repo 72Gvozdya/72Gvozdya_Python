@@ -13,23 +13,12 @@ Outbound Interface    FastEthernet0/0
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
-print('{:22}'.format('Prefix') + '{:<15}'.format(line[1]))
-        print('{:22}'.format('AD/Metric') + '{:<15}'.format(line[2]))
-        print('{:22}'.format('Next-Hop') + '{:<15}'.format(line[4]))
-        print('{:22}'.format('Last update') + '{:<15}'.format(line[5]))
-        print('{:22}'.format('Outbound Interface') + '{:15}'.format(line[6]))
-
 """
-result = {}
 with open('ospf.txt', 'r') as f:
     for line in f:
-        line = line.replace(',', '')
-        line = line.replace(']', '')
-        line = line.replace('[', '')
-        line = line.split()
-        print('{:22}'.format('Prefix') + '{:<15}'.format(line[1]))
-        print('{:22}'.format('AD/Metric') + '{:<15}'.format(line[2]))
-        print('{:22}'.format('Next-Hop') + '{:<15}'.format(line[4]))
-        print('{:22}'.format('Last update') + '{:<15}'.format(line[5]))
-        print('{:22}'.format('Outbound Interface') + '{:15}'.format(line[6]))
-
+        line = line.strip().split()
+        print(f'{"Prefix":<22}' + f'{line[1]}')
+        print(f'{"AD/Metric":<22}' + f'{line[2].strip("[]")}')
+        print(f'{"Next-Hop":<22}' + f'{line[4].rstrip(",")}')
+        print(f'{"Last update":<22}'  + f'{line[5].rstrip(",")}')
+        print(f'{"Outbound Interface":<22}' + f'{line[6]}' + '\n')

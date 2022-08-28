@@ -21,11 +21,3 @@
 
 """
 
-with open('CAM_table.txt', 'r') as f:
-    for line in f:
-        line = line.split()
-       # print(line)
-        if line and line[0][0].isdigit():
-            #print(line[1])
-            #line = line.replace(',', '')
-            print(f"{line[0]:<15} {line[1]:<15} {line[3]:>15}")

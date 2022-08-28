@@ -11,7 +11,7 @@ data2 = [('0055.AAAA.CCCC', 'sw5', 'Cisco 3750', 'London, Green Str'),
           'London, Green Str'), ('0088.AAAA.CCCC', 'sw8', 'Cisco 3750',
                                  'London, Green Str')]
 
-con = dbf.create_connection('sw_inventory3.db')
+con = dbf.create_connection('sw_inventory4.db')
 
 query_insert = "INSERT into switch values (?, ?, ?, ?)"
 query_get_all = "SELECT * from switch"

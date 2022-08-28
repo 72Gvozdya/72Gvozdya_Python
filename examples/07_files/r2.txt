@@ -8,4 +8,3 @@ no ip domain lookup
 !
 ip ssh version 2
 !
-hostname r2

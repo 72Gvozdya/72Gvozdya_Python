@@ -17,27 +17,32 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
-ip = input("Введите IP адрес в формате 10.0.1.1: ")
-octets = ip.split('.')
-correct_ip = True
-if len(octets) != 4:
-    correct_ip = False
+'''
+  ("10.1.1.1", "unicast"),
+            ("230.1.1.1", "multicast"),
+            ("255.255.255.255", "local broadcast"),
+            ("0.0.0.0", "unassigned"),
+            ("250.1.1.1", "unused"),
+'''
+ip = input("Введите IP-адрес: ")
+octs = ip.split('.')
+valid_ip = True
+if not len(octs) == 4:
+    valid_ip = False
+for x in octs:
+    if not x.isdigit() or not 0 <= int(x) <= 255:
+        valid_ip = False
+
+if not valid_ip:
+    print("Неправильный IP-адрес")
 else:
-    for i in octets:
-        if not (i.isdigit() and int(i) in range(256)):
-            correct_ip = False
-            break
-if not correct_ip:
-    print('Неправильный IP-адрес')
-else:
-    oct1 = int(ip.split('.')[0])
-    if 1 <= oct1 <= 223:
-        print("unicast")
-    elif 223 < oct1 < 240:
-        print("multicast")
+    if 1<= int(octs[0]) <=223:
+        print('unicast')
+    elif 224 <= int(octs[0]) <= 239:
+        print('multicast')
     elif ip == '255.255.255.255':
-        print("local broadcast")
+        print('local broadcast')
     elif ip == '0.0.0.0':
-        print("unassigned")
+        print('unassigned')
     else:
-        print("unused")
+        print('unused')

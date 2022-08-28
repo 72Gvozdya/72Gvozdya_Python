@@ -28,15 +28,6 @@ Next-Hop              {}
 Last update           {}
 Outbound Interface    {}
 """
-output = "\n{:25} {}" * 5
-route = ospf_route.replace(',', ' ').replace('[', '').replace(']', '')
-route
-route = route.split()
-route
-print(output.format(
-    "Prefix", route[0],
-    "AD/Metric", route[1],
-    "Next-Hop", route[3],
-    "Last update", route[4],
-    "Outbound Interface", route[5]
-))
+ospf_route = ospf_route.replace(',', ' ').replace('[', '').replace(']', '').split()
+#print(ospf_route)
+print(template.format(ospf_route[0], ospf_route[1], ospf_route[3], ospf_route[4], ospf_route[5]))

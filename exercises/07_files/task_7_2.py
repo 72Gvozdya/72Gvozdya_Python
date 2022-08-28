@@ -42,8 +42,8 @@ interface Ethernet0/3
 from sys import argv
 
 #filename = argv[1]
-
-with open('config_sw1.txt', 'r') as f:
+#with open (filename, 'r') as f:
+with open ('config_sw1.txt', 'r') as f:
     for line in f:
         if not line.startswith('!'):
             print(line.rstrip())
