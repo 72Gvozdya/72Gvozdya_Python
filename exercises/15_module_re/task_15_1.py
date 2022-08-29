@@ -46,3 +46,4 @@ def get_ip_from_cfg(config):
         result = [m.groups() for m in re.finditer(regex, f.read())]
     return result
 '''
+#Test
