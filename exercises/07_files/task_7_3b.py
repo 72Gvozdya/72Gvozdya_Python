@@ -17,15 +17,19 @@ Enter VLAN number: 10
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
-word2 = []
+template = "{:<9} {:<20} {}"
+vlanlst = []
+inputvlan = input( "Введите номер Vlan: ")
 with open('CAM_table.txt', 'r') as f:
     for line in f:
-        word = line.split()
-        if word and word[0].isdigit():
-            vlan, mac, _, interf = word
-            word2.append([int(vlan), mac, interf])
-            #print(word)
-    vlan2 = int(input('Введите № влан: '))
-    for vlan, mac, interf in sorted(word2):
-        if vlan == vlan2:
-            print(f'{vlan:<9}{mac:20}{interf}')
+        line = line.split()
+        if line and line[0].isdigit() and line[0] == inputvlan:
+            line[0] = int(line[0])
+            vlan, mac, _, ports = line
+            vlanlst.append([vlan, mac, ports])
+            #print(template.format(str[0], str[1], str[3]))
+            #vlan, mac, _, ports = str
+            #print(f'{vlan:9}{mac:20}{ports}')
+    vlanlst = sorted(vlanlst)
+    for vlan, mac, ports in vlanlst:
+        print(template.format(vlan, mac, ports))

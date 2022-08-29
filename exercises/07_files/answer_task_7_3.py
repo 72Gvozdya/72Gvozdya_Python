@@ -20,10 +20,10 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
-template = "{:9} {:<20} {}"
 
-with open('CAM_table.txt', 'r') as f:
-    for line in f:
-        str = line.split()
-        if str and str[0].isdigit():
-            print(template.format(str[0], str[1], str[3]))
+with open("CAM_table.txt") as conf:
+    for line in conf:
+        words = line.split()
+        if words and words[0].isdigit():
+            vlan, mac, _, interface = words
+            print(f"{vlan:9}{mac:20}{interface}")

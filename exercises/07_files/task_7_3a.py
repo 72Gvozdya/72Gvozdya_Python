@@ -40,13 +40,18 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
-word2 = []
+template = "{:<9} {:<20} {}"
+vlanlst = []
 with open('CAM_table.txt', 'r') as f:
     for line in f:
-        word = line.split()
-        if word and word[0].isdigit():
-            vlan, mac, _, interf = word
-            word2.append([int(vlan), mac, interf])
-            #print(word)
-    for vlan, mac, interf in sorted(word2):
-        print(f'{vlan:<9}{mac:20}{interf}')
+        str = line.split()
+        if str and str[0].isdigit():
+            str[0] = int(str[0])
+            vlan, mac, _, ports = str
+            vlanlst.append([vlan, mac, ports])
+            #print(template.format(str[0], str[1], str[3]))
+            #vlan, mac, _, ports = str
+            #print(f'{vlan:9}{mac:20}{ports}')
+    vlanlst = sorted(vlanlst)
+    for vlan, mac, ports in vlanlst:
+        print(template.format(vlan, mac, ports))
