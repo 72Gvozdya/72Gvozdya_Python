@@ -40,10 +40,11 @@ infiles = [
 
 def create_network_map(filenames):
     result = {}
+    result_temp = {}
     for filename in filenames:
         with open(filename) as show_command:
-            parsed = parse_cdp_neighbors(show_command.read())
-            result.update(parsed)
+            result_temp = parse_cdp_neighbors(show_command.read())
+            result.update(result_temp)
     return result
 
 if __name__ == "__main__":

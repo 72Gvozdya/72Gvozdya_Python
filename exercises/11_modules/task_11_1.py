@@ -33,8 +33,7 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
-
-
+from pprint import pprint
 def parse_cdp_neighbors(command_output):
     """
     Тут мы передаем вывод команды одной строкой потому что именно в таком виде будет
@@ -44,16 +43,24 @@ def parse_cdp_neighbors(command_output):
     Плюс учимся работать с таким выводом.
     """
     result = {}
-    for line in command_output.split("\n"):
-       line = line.strip()
-       columns = line.split()
-       if ">" in line:
-           hostname = line.split(">")[0]
-       elif len(columns) >= 5 and columns[3].isdigit():
-           r_host, l_int, l_int_num, *other, r_int, r_int_num = columns
-           result[(hostname, l_int + l_int_num)] = (r_host, r_int + r_int_num)
+   # result_template = '''({}, {})'''
+    lines = [stroke.strip() for stroke in command_output.split('\n')]
+    #result = {rec: [] for rec in paramlist}
+    for line in lines:
+        columns = line.split()
+        if '>' in line:
+            hostname = line.split('>')[0]
+        if len(columns) > 7 and columns[3].isdigit():
+            device, loc_int_name, loc_int_num, *other, port_name, port_num = columns
+            tuple1 = (hostname, loc_int_name + loc_int_num)
+            tuple2 = (device, port_name + port_num)
+            result[tuple1] = tuple2
+            #result[hostname, loc_int_name + loc_int_num] = result_template.format(device, port_name + port_num)
     return result
 
 if __name__ == "__main__":
-    with open("sh_cdp_n_sw1.txt") as f:
-        print(parse_cdp_neighbors(f.read()))
+    with open("sh_cdp_n_r3.txt") as f:
+        pprint(parse_cdp_neighbors(f.read()))
+
+#sh_cdp_n_r3.txt
+#sh_cdp_n_sw1.txt
