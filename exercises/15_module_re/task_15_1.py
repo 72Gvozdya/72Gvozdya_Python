@@ -25,25 +25,21 @@
 """
 import re
 
-def get_ip_from_cfg(file):
-    with open(file) as f:
-        tup = tuple()
-        listup = []
-        for line in f:
-            match = re.search(r'\s+ip address\s+(\d+\.\d+\.\d+\.\d+)\s(\d+\.\d+\.\d+\.\d+)', line)
-            if match:
-                tup = tuple(match.group(1, 2))
-                listup.append(tup)
-    return listup
-
-if __name__ == "__main__":
-    print(get_ip_from_cfg('config_r1.txt'))
-
-'''Решение из учебника
-def get_ip_from_cfg(config):
-    regex = r"ip address (\S+) (\S+)"
-    with open(config) as f:
-        result = [m.groups() for m in re.finditer(regex, f.read())]
-    return result
 '''
-#Test
+       for line in f:
+            match = re.search(regex, line)
+            if match:
+                result.append(match.groups())
+'''
+
+def get_ip_from_cfg(file):
+    regex = r' ip address (?P<ip>\S+) (?P<mask>\S+)'
+    result = []
+    with open(file) as f:
+        match = re.finditer(regex, f.read())
+        result = [m.groups() for m in match]
+
+    return result
+
+if __name__ == '__main__':
+    print(get_ip_from_cfg('config_r1.txt'))

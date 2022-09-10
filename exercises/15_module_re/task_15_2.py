@@ -22,11 +22,30 @@
 
 """
 import re
+
 def parse_sh_ip_int_br(file):
-    regex = r'(\S+) +(\S+) +\w+ \w+ +(administratively down|up|down) +(up|down)'
+    result = []
+    regex = (r"(\S+) +(\S+) +\w+ +\w+ +(up|administratively down|down) +(up|down)")
     with open(file) as f:
-        result = [m.groups() for m in re.finditer(regex, f.read())]
+        match = re.finditer(regex, f.read())
+        result = [m.groups() for m in match]
+
+
     return result
 
+'''
+def parse_sh_ip_int_br(textfile):
+    regex = r"(\S+) +(\S+) +\w+ \w+ +(administratively down|up|down) +(up|down)"
+    with open(textfile) as f:
+        result = [m.groups() for m in re.finditer(regex, f.read())]
+    return result
+'''
+'''
+       for line in f:
+            line2 = re.sub(r'administratively down', 'down', line)
+            match = re.search(regex, line)
+            if match:
+                result.append(match.groups())
+'''
 if __name__ == '__main__':
     print(parse_sh_ip_int_br('sh_ip_int_br.txt'))

@@ -26,7 +26,18 @@ interface Loopback0
 """
 import re
 def get_ints_without_description(file):
-    regex =
+    result = []
+    regex = "!\ninterface (?P<intf>\S+)\n (?P<desc>description)?"
+    with open(file) as f:
+        match = re.finditer(regex, f.read())
+        for m in match:
+            if m.lastgroup == 'intf':
+                result.append(m.group('intf'))
+
+        #result = [m.group('intf') for m in match if m.lastgroup == 'intf']
+        #match = re.finditer(regex, f.read())
+        #result = [m.group('intf') for m in match if m.lastgroup == 'intf']
+    return result
 
 if __name__ == '__main__':
     print(get_ints_without_description('config_r1.txt'))
