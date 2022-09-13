@@ -36,36 +36,23 @@
 """
 
 import ipaddress
+list1 = ['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']
 
-def convert_ranges_to_ip_list(listrange):
-    listip = []
-    for addr in listrange:
-        if "-" in addr:
-            start_ip, stop_ip = addr.split("-")
-            if "." not in stop_ip:
-                stop_ip = ".".join(start_ip.split(".")[:-1] + [stop_ip])
-            start_ip = ipaddress.ip_address(start_ip)
-            stop_ip = ipaddress.ip_address(stop_ip)
-            for ip in range(int(start_ip), int(stop_ip) + 1):
-                listip.append(str(ipaddress.ip_address(ip)))
-        else: listip.append(str(addr))
-    return listip
-
-"""
-def convert_ranges_to_ip_list(ip_addresses):
+def convert_ranges_to_ip_list(address_list):
     ip_list = []
-    for ip_address in ip_addresses:
-        if "-" in ip_address:
-            start_ip, stop_ip = ip_address.split("-")
-            if "." not in stop_ip:
-                stop_ip = ".".join(start_ip.split(".")[:-1] + [stop_ip])
-            start_ip = ipaddress.ip_address(start_ip)
-            stop_ip = ipaddress.ip_address(stop_ip)
-            for ip in range(int(start_ip), int(stop_ip) + 1):
-                ip_list.append(str(ipaddress.ip_address(ip)))
+    for rec in address_list:
+        if not '-' in rec:
+            ip_list.append(rec)
         else:
-            ip_list.append(str(ip_address))
+            rec = rec.split('-')
+            ip_list.append(rec[0])
+            tmp_ip = ipaddress.ip_address(rec[0])
+            if len(rec[-1]) == 1:
+                tmp_list = [str(tmp_ip + i) for i in range(1, int(rec[-1]))]
+            else:
+                tmp_list = [str(tmp_ip + i) for i in range(1, (int(rec[-1].split('.')[-1]) - int(rec[0].split('.')[-1])) + 1)]
+            ip_list.extend(tmp_list)
     return ip_list
-"""
-if __name__ == "__main__":
-    print(convert_ranges_to_ip_list(['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']))
+
+if __name__ == '__main__':
+    print(convert_ranges_to_ip_list(list1))

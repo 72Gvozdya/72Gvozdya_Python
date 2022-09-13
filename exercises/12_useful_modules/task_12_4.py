@@ -19,44 +19,27 @@ new_ip должен быть равен "50.1.1.137"
 
 from ipaddress import ip_address
 
-
 def find_n_ip(ip_from_range1, range1, range2):
-    range_list = "-".join([range1, range2]).split("-")
-    start1, end1, start2, end2 = [ip_address(i) for i in range_list]
-
-    ip = ip_address(ip_from_range1)
-
-    current_ip = start1
-    index = 0
-    while True:
-        if current_ip == ip:
-            break
-        elif current_ip > end1:
-            raise ValueError(f"IP {ip} не в диапазоне {range1}")
-        index += 1
-        current_ip += 1
-
-    match_ip = start2
-    for _ in range(index):
-        match_ip += 1
-    if match_ip > end2:
-        raise ValueError(f"Найденный IP {match_ip} не в диапазоне {range2}")
-    return str(match_ip)
+    ip1 = ip_address(ip_from_range1)
+    range_list = ('-').join([range1, range2]).split('-')
+    start_ip1, end_ip1, start_ip2, end_ip2 = range_list
+    start_ip1 = ip_address(start_ip1)
+    end_ip1 = ip_address(end_ip1)
+    ip = start_ip1
+    i = 0
+    while not ip1 == ip:
+        ip = start_ip1 + i
+        i = i + 1
+    start_ip2 = ip_address(start_ip2)
+    end_ip2 = ip_address(end_ip2)
+    k = 0
+    ip2 = start_ip2
+    while not k == i:
+        ip2 = start_ip2 + k
+        k = k + 1
+    return str(ip2)
 
 
-def find_n_ip(ip_from_range1, range1, range2):
-    range_list = "-".join([range1, range2]).split("-")
-    start1, end1, start2, end2 = [int(ip_address(i)) for i in range_list]
-    ip = int(ip_address(ip_from_range1))
-    if ip > end1:
-        raise ValueError(f"IP {ip} не в диапазоне {range1}")
+if __name__ == '__main__':
+    print(find_n_ip("10.1.1.17", "10.1.1.1-10.1.1.30", "50.1.1.1-50.1.1.20"))
 
-    index = ip - start1
-    match_ip = start2 + index
-    if match_ip > end2:
-        raise ValueError(f"Найденный IP {match_ip} не в диапазоне {range2}")
-    return str(ip_address(match_ip))
-
-
-if __name__ == "__main__":
-    print(find_n_ip("10.1.1.127", "10.1.1.100-10.1.2.200", "50.1.1.110-50.1.2.210"))

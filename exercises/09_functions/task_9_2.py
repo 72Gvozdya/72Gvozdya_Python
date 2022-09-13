@@ -62,12 +62,14 @@ trunk_config_2 = {
 }
 
 def generate_trunk_config(intf_vlan_mapping, trunk_template):
-    com_conf = []
+    config_trunk = []
     for intf, vlans in intf_vlan_mapping.items():
-        com_conf.append('interface ' + intf)
+        config_trunk.append(f'interface {intf}')
         for command in trunk_template:
             if command.endswith('allowed vlan'):
-                com_conf.append(f'{command} {str(vlans).strip("[]").replace(" ", "")}')
+                config_trunk.append(f'{command} {str(intf_vlan_mapping[intf]).strip("[]").replace(" ", "")}') #{str(intf_vlan_mapping[intf]).strip("[]")}
             else:
-                com_conf.append(f'{command}')
-    return(com_conf)
+                config_trunk.append(command)
+
+    return config_trunk
+#generate_trunk_config(trunk_config, trunk_mode_template)

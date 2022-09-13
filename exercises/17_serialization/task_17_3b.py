@@ -43,3 +43,27 @@
 > pip install graphviz
 
 """
+import yaml
+from draw_network_graph import draw_topology
+from pprint import pprint
+def transform_topology(yaml_file):
+    dic_from_file = {}
+    temp_dic = {}
+    result = {}
+    with open(yaml_file) as y:
+        dic_from_file = yaml.safe_load(y)
+        for key, value in dic_from_file.items():
+            for key2, value2 in value.items():
+                for key3, value3 in value2.items():
+                    temp_dic[key, key2] = (key3, value3)
+        for key, value in temp_dic.items():
+            if not result.get(value) == key:
+                result[key] = value
+
+    return result
+
+if __name__ == '__main__':
+   draw_topology(transform_topology('topology.yaml'))
+    #pprint(transform_topology('task_17_3.yaml'))
+ #   temp = transform_topology('task_17_3.yaml')
+#    pprint(temp)

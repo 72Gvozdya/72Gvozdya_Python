@@ -25,7 +25,7 @@
     "version 15.0": [],
     "service timestamps debug datetime msec": [],
     "service timestamps log datetime msec": [],
-    "no service password-encryption": [],
+    "no service password-encryption": [],itit
     "hostname sw1": [],
     "interface FastEthernet0/0": [
         "switchport mode access",
@@ -66,21 +66,23 @@ def ignore_command(command, ignore):
     return ignore_status
 
 def convert_config_to_dict(config_filename):
-    '''
-    convert_config_to_dict('config_sw1.txt')
-    '''
-    conf_dic = {}
+    result = {}
+    command_list = []
     with open(config_filename) as f:
         for line in f:
-            line = line.rstrip()
-            if line.startswith('!'):
-                continue
-            #elif not line.isalnum():
-             #   continue
-            if not line.startswith(' ') and not ignore_command(line, ignore):
-                command = line.strip()
-                subcommand = []
-            elif line.startswith(' ') and not ignore_command(line, ignore):
-                subcommand.append(line.strip())
-            conf_dic[command] = subcommand
-    return(conf_dic)
+            strip_line = line.strip()
+            if strip_line and not ignore_command(line, ignore) and not line.startswith('!'):
+                if not line.startswith(' '):
+                    section = strip_line
+                    result[section] = []
+                    command_list = []
+                else:
+                    command_list.append(strip_line)
+                    result[section] = command_list
+
+
+
+
+    return result
+
+#convert_config_to_dict('config_sw1.txt')
