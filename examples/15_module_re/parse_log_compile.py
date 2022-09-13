@@ -1,4 +1,4 @@
-import re
+rimport re
 
 regex = re.compile('Host \S+ '
                    'in vlan (\d+) '
